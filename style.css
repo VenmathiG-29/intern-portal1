@@ -1,0 +1,207 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #dfe9f3, #ffffff);
+  transition: background 0.3s ease;
+}
+body.dark {
+  background: #121212;
+  color: white;
+}
+.dark-toggle {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.dashboard-glass {
+  max-width: 500px;
+  margin: auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.profile-card {
+  background: rgba(255,255,255,0.4);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.profile-avatar {
+  width: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.fade-in {
+  animation: fade 1s ease-in;
+}
+@keyframes fade {
+  from { opacity: 0; transform: translateY(-10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.progress-ring-container {
+  position: relative;
+  width: 120px;
+  margin: auto;
+}
+.progress-ring {
+  transform: rotate(-90deg);
+}
+.ring-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 10;
+}
+.ring-fill {
+  fill: none;
+  stroke: #4caf50;
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+}
+.progress-label {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.rewards-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 20px;
+}
+
+.leaderboard-glow {
+  list-style: none;
+  padding: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+.leaderboard-glow li {
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: linear-gradient(to right, #6dd5ed, #2193b0);
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.logout {
+  margin-top: 1.5rem;
+  background: #ff5252;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.logout:hover {
+  background: #d50000;
+}
+textarea {
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  resize: none;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+textarea:focus {
+  outline: none;
+  border: 1px solid #2575fc;
+}
+.info-box {
+  background: rgba(255, 255, 255, 0.4);
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 1rem 0;
+  text-align: left;
+}
+body.dark .info-box {
+  background: rgba(0, 0, 0, 0.3);
+}
+a {
+  color: #2575fc;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.main-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.sidebar {
+  width: 180px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(20px);
+  padding: 1.5rem 1rem;
+  color: #333;
+  font-weight: bold;
+}
+body.dark .sidebar {
+  background: rgba(0,0,0,0.3);
+  color: #fff;
+}
+.sidebar h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar ul li {
+  margin: 1rem 0;
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.glass-wrap {
+  background: transparent;
+}
+
+.glass-section {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(16px);
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+body.dark .glass-section {
+  background: rgba(0, 0, 0, 0.4);
+}
+.glass-section:hover {
+  transform: scale(1.02);
+}
+
+.center {
+  text-align: center;
+}

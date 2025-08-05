@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Intern Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <button class="dark-toggle" onclick="toggleDarkMode()">🌓</button>
+
+  <div class="main-container">
+    <!-- Sidebar Section -->
+    <aside class="sidebar">
+      <h1>🎓 Intern</h1>
+      <ul>
+        <li>🏠 Dashboard</li>
+        <li>📊 Progress</li>
+        <li>🏅 Rewards</li>
+        <li>🏆 Leaderboard</li>
+        <li>📚 Resources</li>
+        <li>📝 Feedback</li>
+        <li><button class="logout" onclick="logout()">Logout</button></li>
+      </ul>
+    </aside>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-content glass-wrap">
+
+      <!-- Welcome -->
+      <section class="glass-section center">
+        <h2>👋 Welcome, <span id="internName">Intern</span></h2>
+        <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Intern" class="profile-avatar" />
+      </section>
+
+      <!-- Info -->
+      <section class="glass-section">
+        <h3>📋 Your Info</h3>
+        <p><strong>Referral Code:</strong> <span id="referralCode">--</span> <button onclick="copyCode()">📋</button></p>
+        <p><strong>Total Donations:</strong> ₹<span id="donations">0</span></p>
+        <p><strong>Email:</strong> intern@example.com</p>
+        <p><strong>Phone:</strong> +91-9876543210</p>
+        <p><strong>Location:</strong> Bengaluru, India</p>
+      </section>
+
+      <!-- Progress Ring -->
+      <section class="glass-section center">
+        <h3>🎯 Donation Progress</h3>
+        <div class="progress-ring-container">
+          <svg class="progress-ring" width="120" height="120">
+            <circle class="ring-bg" r="50" cx="60" cy="60"/>
+            <circle class="ring-fill" r="50" cx="60" cy="60" stroke-dasharray="314" stroke-dashoffset="314"/>
+          </svg>
+          <div class="progress-label" id="progressLabel">0%</div>
+        </div>
+      </section>
+
+      <!-- Rewards + Achievements -->
+      <section class="glass-section">
+        <h3>🏅 Rewards & Badges</h3>
+        <ul class="rewards-list">
+          <li>🎁 T-shirt at ₹5000</li>
+          <li>🏆 Certificate at ₹10000</li>
+          <li>🎖 Bronze Fundraiser</li>
+          <li>🚀 First Referral</li>
+        </ul>
+      </section>
+
+      <!-- Leaderboard -->
+      <section class="glass-section">
+        <h3>🏆 Leaderboard</h3>
+        <ul id="leaderboard" class="leaderboard-glow"></ul>
+      </section>
+
+      <!-- Resources -->
+      <section class="glass-section">
+        <h3>📚 Learning Resources</h3>
+        <ul class="rewards-list">
+          <li><a href="#">Fundraising Guide PDF</a></li>
+          <li><a href="#">Design Tips for Canva</a></li>
+          <li><a href="#">Digital Campaign Webinar</a></li>
+        </ul>
+      </section>
+
+      <!-- Events -->
+      <section class="glass-section">
+        <h3>📅 Upcoming Events</h3>
+        <ul class="rewards-list">
+          <li>🌐 Webinar: Aug 10</li>
+          <li>💡 Hackathon: Aug 14</li>
+          <li>🧠 Workshop: Aug 18</li>
+        </ul>
+      </section>
+
+      <!-- Feedback -->
+      <section class="glass-section">
+        <h3>💬 Feedback</h3>
+        <textarea id="feedback" placeholder="Write your thoughts..." rows="4"></textarea>
+        <button onclick="submitFeedback()">Send Feedback</button>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    const name = localStorage.getItem("internName") || "Intern";
+    document.getElementById("internName").textContent = name;
+
+    fetch('http://localhost:5000/api/intern')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("referralCode").textContent = data.referralCode;
+        document.getElementById("donations").textContent = data.totalDonations;
+
+        const percent = Math.min(100, (data.totalDonations / 10000) * 100);
+        const offset = 314 - (314 * percent / 100);
+        document.querySelector('.ring-fill').style.strokeDashoffset = offset;
+        document.getElementById('progressLabel').textContent = `${Math.round(percent)}%`;
+      });
+
+    fetch('http://localhost:5000/api/leaderboard')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('leaderboard');
+        data.forEach(entry => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${entry.name}</strong> — ₹${entry.totalDonations}`;
+          list.appendChild(li);
+        });
+      });
+
+    function copyCode() {
+      const code = document.getElementById("referralCode").textContent;
+      navigator.clipboard.writeText(code).then(() => alert("Referral code copied!"));
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+
+    function submitFeedback() {
+      const fb = document.getElementById("feedback").value.trim();
+      if (fb) {
+        alert("✅ Feedback submitted!");
+        document.getElementById("feedback").value = "";
+      } else {
+        alert("⚠️ Please write something.");
+      }
+    }
+  </script>
+</body>
+</html>

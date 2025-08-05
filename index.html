@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Intern Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <button class="dark-toggle" onclick="toggleDarkMode()">🌓</button>
+
+  <div class="dashboard-glass login-glass">
+    <h2 class="fade-in">🚀 Intern Portal Login</h2>
+    <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Intern" alt="Intern Avatar" class="profile-avatar" />
+
+    <input type="text" id="username" placeholder="Enter your name" />
+<button onclick="location.href='dashboard.html'">Login</button>
+  </div>
+
+  <script>
+    function login() {
+      const name = document.getElementById('username').value.trim();
+      if (name) {
+        localStorage.setItem("internName", name);
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Please enter your name!");
+      }
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
+  </script>
+</body>
+</html>
